@@ -1,4 +1,4 @@
-/*=============== FILTERS TABS ===============*/
+/* FILTERS TABS */
 const tabs = document.querySelectorAll('[data-target]')
     tabContents = document.querySelectorAll('[data-content]')
 
@@ -18,7 +18,44 @@ tabs.forEach(tab =>{
     })
 })
 
-/*=============== DARK LIGHT THEME ===============*/
+/* DARK LIGHT THEME */
+const themeButton = document.getElementById('theme-button')
+const darktheme = 'dark-theme'
+const iconTheme = 'ri-sun-line'
 
+const selectedTheme = localStorage.getItem('selected-theme')
+const selectedIcon = localStorage.getItem('selected-icon')
 
-/*=============== SCROLL REVEAL ANIMATION ===============*/
+const getCurrentTheme = () => document.body.classList.contains(darktheme) ? 'dark' : 'light'
+const getCurrentIcon = () => themeButton.classList.contains(icontheme) ? 'ri-moon-line' : 'ri-sun-line'
+
+if (selectedTheme){
+    document.body.classList[selectedTheme === 'dark' ? 'add' : 'remove'](darktheme)
+    themeButton.classList[selectedIcon === 'ri-moon-line' ? 'add' : 'remove'](icontheme)
+
+}
+
+themeButton.addEventListener('click', () => {
+    document.body.classList.toggle(darktheme)
+    themeButton.classList.toggle(icontheme)
+
+    localStorage.setItem('selected-theme', getCurrentTheme())
+    localStorage.setItem('selected-icon', getCurrentIcon())
+})
+
+/* SCROLL REVEAL ANIMATION */
+const sr = ScrollReveal({
+    origin: 'top';
+    distance: '60px',
+    duration: 2500,
+    delay: 400,
+})
+
+sr.reveal('.profile__border')
+sr.reveal('.profile__name', {delay: 500})
+sr.reveal('.profile__profession', {delay: 600})
+sr.reveal('.profile__social', {delay: 700})
+sr.reveal('.profile__info-group', {interval: 100, delay: 700})
+sr.reveal('.profile__buttons', {delay: 800})
+sr.reveal('.filters__content', {delay: 900})
+sr.reveal('.filters', {delay: 1000})
